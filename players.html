@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registered Players - Badminton Tournament</title>
     <style>
+        /* CSS from your original file goes here. It is lengthy, so it's omitted for brevity in this response, but you should keep it exactly as you provided. */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -30,8 +31,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background:
-                radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.08) 0, transparent 50%),
+            background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.08) 0, transparent 50%),
                 radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.06) 0, transparent 50%);
             pointer-events: none;
         }
@@ -211,19 +211,29 @@
         .player-info {
             flex: 1;
             display: flex;
-            align-items: center;
-            justify-content: flex-start;
+            flex-direction: column; /* Changed to column to stack name and last name */
+            align-items: flex-start;
+            justify-content: center;
         }
 
         .player-name {
-            font-size: clamp(1.4rem, 3.5vw, 1.8rem);
+            font-size: clamp(1.1rem, 3.5vw, 1.4rem); /* Reduced size slightly for two lines */
             font-weight: 700;
             color: #ffde59;
             text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
             text-align: left;
             line-height: 1.2;
             letter-spacing: 0.3px;
+            word-break: break-word; /* Ensure long names wrap */
         }
+        
+        .player-surname {
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 2px;
+            font-weight: 400;
+        }
+
 
         /* Highlight search results */
         .highlight {
@@ -269,6 +279,7 @@
                 transform: scale(0.3);
                 opacity: 0;
             }
+
             to {
                 transform: scale(1);
                 opacity: 1;
@@ -441,12 +452,10 @@
 </head>
 
 <body>
-    <!-- Back to home link -->
     <a href="index.html" class="back-link">← Back to Home</a>
 
     <h2>Registered Players</h2>
 
-    <!-- Search container -->
     <div class="search-container">
         <div style="position: relative;">
             <div class="search-icon">🔍</div>
@@ -455,77 +464,17 @@
         </div>
     </div>
 
-    <!-- Search stats -->
     <div class="search-stats hidden" id="searchStats">
         Showing <span id="resultCount">0</span> of <span id="totalCount">0</span> players
     </div>
 
     <div class="players-container" id="playersContainer">
-        <!-- Sample players data - replace with your actual data -->
-        <div class="player-card" data-name="tony">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
-                alt="Tony" class="player-photo" onclick="openModal(this, 'Tony')">
-            <div class="player-info">
-                <div class="player-name">Tony</div>
-            </div>
-        </div>
-
-        <div class="player-card" data-name="sarah smith">
-            <img src="https://images.unsplash.com/photo-1494790108755-2616b2e29c14?w=150&h=150&fit=crop&crop=face"
-                alt="Sarah Smith" class="player-photo" onclick="openModal(this, 'Sarah Smith')">
-            <div class="player-info">
-                <div class="player-name">Sarah Smith</div>
-            </div>
-        </div>
-
-        <div class="player-card" data-name="john doe">
-            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
-                alt="John Doe" class="player-photo" onclick="openModal(this, 'John Doe')">
-            <div class="player-info">
-                <div class="player-name">John Doe</div>
-            </div>
-        </div>
-
-        <div class="player-card" data-name="emily johnson">
-            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face"
-                alt="Emily Johnson" class="player-photo" onclick="openModal(this, 'Emily Johnson')">
-            <div class="player-info">
-                <div class="player-name">Emily Johnson</div>
-            </div>
-        </div>
-
-        <div class="player-card" data-name="michael brown">
-            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face"
-                alt="Michael Brown" class="player-photo" onclick="openModal(this, 'Michael Brown')">
-            <div class="player-info">
-                <div class="player-name">Michael Brown</div>
-            </div>
-        </div>
-
-        <div class="player-card" data-name="lisa wilson">
-            <img src="https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=150&h=150&fit=crop&crop=face"
-                alt="Lisa Wilson" class="player-photo" onclick="openModal(this, 'Lisa Wilson')">
-            <div class="player-info">
-                <div class="player-name">Lisa Wilson</div>
-            </div>
-        </div>
-
-        <div class="player-card" data-name="lisa wilson">
-            <img src="https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=150&h=150&fit=crop&crop=face"
-                alt="Steve Rogers" class="player-photo" onclick="openModal(this, 'Steve Rogers')">
-            <div class="player-info">
-                <div class="player-name">Steve Rogers</div>
-            </div>
-        </div>
-
-        <!-- No results message -->
         <div class="no-results" id="noResults">
             <h3>No players found</h3>
             <p>Try adjusting your search terms or clear the search to see all players.</p>
         </div>
     </div>
 
-    <!-- Modal for displaying zoomed photos -->
     <div id="photoModal" class="modal">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal()">&times;</button>
@@ -534,8 +483,160 @@
         </div>
     </div>
 
+
+    <script id="playerDataScript">
+        // 1. ALL 96 PLAYER NAMES IN JSON FORMAT
+        const playerData = [
+            {"firstName": "Naga anil kumar", "lastName": "Kakaria"},
+            {"firstName": "Akshay Boorla", "lastName": "Boorla"},
+            {"firstName": "Ravi Kumar", "lastName": "Tammana"},
+            {"firstName": "Chandra sekhar", "lastName": "Anumalasetti"},
+            {"firstName": "V K Chaitanya", "lastName": "Challa"},
+            {"firstName": "Sandeep", "lastName": "Kota"},
+            {"firstName": "SV MAHESH KUMAR", "lastName": "Sriram"},
+            {"firstName": "Venkata Guruwardhan kumar", "lastName": "Kotha"},
+            {"firstName": "JITHENDRA KUMAR", "lastName": "GOLLAPUDI"},
+            {"firstName": "DILEEP NAGA BHARGAV", "lastName": "NAMBURU"},
+            {"firstName": "SIVA KUMAR", "lastName": "Cheethirala"},
+            {"firstName": "PRANEETH KRISHNA", "lastName": "JILLA"},
+            {"firstName": "CHANDRASEKHAR", "lastName": "KOTA"},
+            {"firstName": "Chanakya", "lastName": "Bommisetti"},
+            {"firstName": "Manikanta", "lastName": "Mylavarapu"},
+            {"firstName": "Manohar", "lastName": "Tummalapenta"},
+            {"firstName": "Satish", "lastName": "Maturi"},
+            {"firstName": "KiranKumar", "lastName": "DOGIPARTHI"},
+            {"firstName": "Murali Vara Prasad", "lastName": "Gurram"},
+            {"firstName": "Bezawada siva gupta", "lastName": "Bezawada"},
+            {"firstName": "Gopi krishna", "lastName": "Manepalli"},
+            {"firstName": "Harish Kumar", "lastName": "Athukuri"},
+            {"firstName": "NITHIN", "lastName": "CHITTURI"},
+            {"firstName": "VENKATA RAMANA RAO", "lastName": "BATCHU"},
+
+            {"firstName": "Kiriti", "lastName": "Saranam"},
+            {"firstName": "Srikanth", "lastName": "Kandukuri"},
+            {"firstName": "Harshith Kumar", "lastName": "Nallamalli"},
+            {"firstName": "Anil Kumar", "lastName": "Pesala"},
+            {"firstName": "Tarun", "lastName": "Tata"},
+            {"firstName": "Kumarraja", "lastName": "Sugreevu"},
+            {"firstName": "Chakravarthi Pullarao Gupta", "lastName": "Pulikonda"},
+            {"firstName": "M vikram", "lastName": "Muvvala"},
+            {"firstName": "Peruri Satya", "lastName": "Peruri"},
+            {"firstName": "Dinesh Chakravarthy", "lastName": "Morisetty"},
+            {"firstName": "Venkatesh", "lastName": "Channa"},
+            {"firstName": "Sudhakar", "lastName": "Buragadda"},
+            {"firstName": "B.HARISH KUMAR", "lastName": "Bachu"},
+            {"firstName": "Raghavendra", "lastName": "KANDEPU"},
+            {"firstName": "KRISHNA CHAITANYA", "lastName": "DEVISETTY"},
+            {"firstName": "v d sampath kumar", "lastName": "vissamsetty"},
+            {"firstName": "rajasekhar", "lastName": "bandham"},
+            {"firstName": "V. Manoj Kumar", "lastName": "Vallam konda"},
+            {"firstName": "Prasad", "lastName": "Divvela"},
+            {"firstName": "Sainath", "lastName": "Talluri"},
+            {"firstName": "RK", "lastName": "Nalam"},
+            {"firstName": "S S CHAITANYA", "lastName": "SOMISETTY"},
+            {"firstName": "D RAGHAVENDRA RAO", "lastName": "Raghava"},
+            {"firstName": "Manikanta", "lastName": "K"},
+
+            {"firstName": "Dinesh", "lastName": "Perumalla"},
+            {"firstName": "D RAGHAVENDRA RAO", "lastName": "Raghava"},
+            {"firstName": "Chaitanya", "lastName": "Gollapudi"},
+            {"firstName": "Santosh pavan Kumar", "lastName": "Jakka"},
+            {"firstName": "Sundeep", "lastName": "Uppala"},
+            {"firstName": "Karthikeya", "lastName": "Atmakuri"},
+            {"firstName": "srikanth", "lastName": "ponnuru"},
+            {"firstName": "GNANA PRAKASH", "lastName": "TUNUGUNTLA"},
+            {"firstName": "Dvn ramarao", "lastName": "Desu"},
+            {"firstName": "Kasiviswanadh", "lastName": "Kommuri"},
+            {"firstName": "Saiteja", "lastName": "Meduri"},
+            {"firstName": "sasi kalyan chakravarthy", "lastName": "masetty"},
+            {"firstName": "Ramesh Babu", "lastName": "Immadisetti"},
+            {"firstName": "Raja", "lastName": "Patchipulusu"},
+            {"firstName": "Subbarao", "lastName": "Tummapudi"},
+            {"firstName": "Mahesh", "lastName": "Rachapudi"},
+            {"firstName": "Sreedhar", "lastName": "Neeli"},
+            {"firstName": "Murali Krishna", "lastName": "chitturi"},
+            {"firstName": "Karthik", "lastName": "Thammaana"},
+            {"firstName": "Suresh", "lastName": "Thammaana"},
+            {"firstName": "Sarankumar", "lastName": "Gubba"},
+            {"firstName": "Seetha ramaiah Ramu", "lastName": "Majeti"},
+            {"firstName": "Suresh", "lastName": "Mada"},
+
+            {"firstName": "S Naveen Kumar", "lastName": "Sriram"},
+            {"firstName": "Nikhil", "lastName": "Chitturi"},
+            {"firstName": "Dr GADHAMSETTY SRAVAN KUMAR", "lastName": "GADH AMSETTY"},
+            {"firstName": "Dinesh", "lastName": "Telanakula"},
+            {"firstName": "Muralikrishna", "lastName": "Sriram"},
+            {"firstName": "Subrahmanyam", "lastName": "Ravuri"},
+            {"firstName": "D Kiran Kishore", "lastName": "Duddu"},
+            {"firstName": "Tulluri Pandu Ranga Kishore Kumar", "lastName": "Tulluri"},
+            {"firstName": "NITHIN", "lastName": "CHITTURI"},
+            {"firstName": "Sai Krishna", "lastName": "Tulluri"},
+            {"firstName": "Nikhil", "lastName": "Chitturi"},
+            {"firstName": "Raj Prasad", "lastName": "Vema"},
+            {"firstName": "Harsha", "lastName": "Ranga"},
+            {"firstName": "MADHU", "lastName": "PENDELA"},
+            {"firstName": "MAHESH", "lastName": "RACHAPUDI"},
+            {"firstName": "Saran kumar", "lastName": "GUBBA"},
+            {"firstName": "Raja uday", "lastName": "Borra"},
+            {"firstName": "RAJA UDAY", "lastName": "BORRA"},
+            {"firstName": "Phaneendra", "lastName": "Sabbisetty"},
+            {"firstName": "Prasad", "lastName": "Batchu"},
+            {"firstName": "Avinash", "lastName": "Cheetirala"},
+            {"firstName": "Krishna chaitanya", "lastName": "Puvvada"},
+
+            {"firstName": "Raviteja", "lastName": "Penugonda"},
+            {"firstName": "Ramanjaneyulu", "lastName": "K V"},
+            {"firstName": "Bargav sai", "lastName": "Kolipakula"},
+            {"firstName": "HARIBABU", "lastName": "VOLETI"},
+            {"firstName": "Prabhu", "lastName": "Namburu"},
+            {"firstName": "Sudarsana prasad", "lastName": "Kothamasu"},
+            {"firstName": "Sai bhargav", "lastName": "Kolipakula Venkata naga"},
+            {"firstName": "Ch Gokul krishna", "lastName": "Chunduru"},
+            {"firstName": "Nikilesh", "lastName": "Kolipakula"},
+            {"firstName": "Krishna Vihar", "lastName": "CH"}
+        ];
+    </script>
+
     <script>
-        // Search functionality
+        // Default URL for generic player photos
+        const DEFAULT_PHOTO_URL = "https://static.vecteezy.com/system/resources/previews/045/892/686/non_2x/badminton-player-icon-image-symbol-illustration-vector.jpg"
+        // Function to render all players from the data array
+        function renderPlayers(data) {
+            const playersContainer = document.getElementById('playersContainer');
+            const noResults = document.getElementById('noResults');
+            
+            // Clear any existing cards (the samples)
+            const staticCards = Array.from(playersContainer.querySelectorAll('.player-card'));
+            staticCards.forEach(card => card.remove());
+
+            // Iterate over the data array and build the HTML
+            data.forEach(player => {
+                const fullName = `${player.firstName} ${player.lastName}`;
+                const dataName = fullName.toLowerCase().replace(/[^a-z0-9]/g, ''); // Simple normalization for data-name
+                
+                const playerCard = document.createElement('div');
+                playerCard.className = 'player-card';
+                playerCard.setAttribute('data-name', dataName);
+                
+                // Use innerHTML for easier structure creation
+                playerCard.innerHTML = `
+                    <img src="${DEFAULT_PHOTO_URL}" 
+                        alt="${fullName}" 
+                        class="player-photo" 
+                        onclick="openModal(this, '${fullName.replace(/'/g, "\\'")}')">
+                    <div class="player-info">
+                        <div class="player-name">${player.firstName}</div>
+                        <div class="player-surname">${player.lastName}</div>
+                    </div>
+                `;
+                
+                // Insert the new card just before the no-results message
+                playersContainer.insertBefore(playerCard, noResults);
+            });
+        }
+
+
+        // Search functionality - MODIFIED TO PULL CARD DATA AFTER RENDERING
         class PlayerSearch {
             constructor() {
                 this.searchBox = document.getElementById('searchBox');
@@ -546,22 +647,25 @@
                 this.resultCount = document.getElementById('resultCount');
                 this.totalCount = document.getElementById('totalCount');
                 
-                this.playerCards = Array.from(document.querySelectorAll('.player-card:not(.no-results)'));
+                // Collect player cards after they have been dynamically rendered
+                this.playerCards = Array.from(document.querySelectorAll('.player-card'));
                 this.originalPlayerNames = new Map();
                 
                 this.init();
             }
             
             init() {
-                // Store original player names for highlighting
+                // Store original player names (First Name + Last Name) for search and highlighting
                 this.playerCards.forEach(card => {
-                    const nameElement = card.querySelector('.player-name');
-                    const originalName = nameElement.textContent.trim();
-                    this.originalPlayerNames.set(card, originalName);
+                    const firstName = card.querySelector('.player-name').textContent.trim();
+                    const lastName = card.querySelector('.player-surname').textContent.trim();
+                    const fullName = `${firstName} ${lastName}`;
+                    this.originalPlayerNames.set(card, {firstName: firstName, lastName: lastName, fullName: fullName});
                 });
                 
                 // Set initial total count
                 this.totalCount.textContent = this.playerCards.length;
+                this.resultCount.textContent = this.playerCards.length; // All visible initially
                 
                 // Event listeners
                 this.searchBox.addEventListener('input', () => this.handleSearch());
@@ -588,21 +692,23 @@
                 let visibleCount = 0;
                 
                 this.playerCards.forEach(card => {
-                    const playerName = this.originalPlayerNames.get(card).toLowerCase();
-                    const nameElement = card.querySelector('.player-name');
+                    const originalData = this.originalPlayerNames.get(card);
+                    const playerName = originalData.fullName.toLowerCase();
+                    const firstNameElement = card.querySelector('.player-name');
+                    const lastNameElement = card.querySelector('.player-surname');
                     
                     if (playerName.includes(searchTerm)) {
                         card.classList.remove('hidden');
                         visibleCount++;
                         
-                        // Highlight matching text
-                        const originalName = this.originalPlayerNames.get(card);
-                        const highlightedName = this.highlightText(originalName, searchTerm);
-                        nameElement.innerHTML = highlightedName;
+                        // Highlight matching text on both name fields
+                        firstNameElement.innerHTML = this.highlightText(originalData.firstName, searchTerm);
+                        lastNameElement.innerHTML = this.highlightText(originalData.lastName, searchTerm);
                     } else {
                         card.classList.add('hidden');
-                        // Restore original name
-                        nameElement.textContent = this.originalPlayerNames.get(card);
+                        // Restore original text
+                        firstNameElement.textContent = originalData.firstName;
+                        lastNameElement.textContent = originalData.lastName;
                     }
                 });
                 
@@ -615,8 +721,8 @@
             
             highlightText(text, searchTerm) {
                 if (!searchTerm) return text;
-                
-                const regex = new RegExp(`(${searchTerm})`, 'gi');
+                // 'gi' for global (all occurrences) and case-insensitive
+                const regex = new RegExp(`(${searchTerm})`, 'gi'); 
                 return text.replace(regex, '<span class="highlight">$1</span>');
             }
             
@@ -641,8 +747,9 @@
             showAllPlayers() {
                 this.playerCards.forEach(card => {
                     card.classList.remove('hidden');
-                    const nameElement = card.querySelector('.player-name');
-                    nameElement.textContent = this.originalPlayerNames.get(card);
+                    const originalData = this.originalPlayerNames.get(card);
+                    card.querySelector('.player-name').textContent = originalData.firstName;
+                    card.querySelector('.player-surname').textContent = originalData.lastName;
                 });
                 
                 this.searchStats.classList.add('hidden');
@@ -657,7 +764,7 @@
             }
         }
 
-        // Modal functionality
+        // Modal functionality - KEPT AS IS
         function openModal(imgElement, playerName) {
             const modal = document.getElementById('photoModal');
             const modalImage = document.getElementById('modalImage');
@@ -677,7 +784,7 @@
             document.body.style.overflow = 'auto';
         }
 
-        // Event listeners for modal
+        // Event listeners for modal - KEPT AS IS
         document.getElementById('photoModal').addEventListener('click', function (e) {
             if (e.target === this) {
                 closeModal();
@@ -690,33 +797,13 @@
             }
         });
 
-        // Initialize search functionality when page loads
+        // Initialize everything: 
+        // 1. Render players first.
+        // 2. Initialize the search functionality on the newly created cards.
         document.addEventListener('DOMContentLoaded', function() {
+            renderPlayers(playerData);
             new PlayerSearch();
         });
-
-        // Add more players dynamically (for demo)
-        function addPlayer(name, imageUrl) {
-            const playersContainer = document.getElementById('playersContainer');
-            const noResults = document.getElementById('noResults');
-            
-            const playerCard = document.createElement('div');
-            playerCard.className = 'player-card';
-            playerCard.setAttribute('data-name', name.toLowerCase());
-            
-            playerCard.innerHTML = `
-                <img src="${imageUrl}" alt="${name}" class="player-photo" onclick="openModal(this, '${name}')">
-                <div class="player-info">
-                    <div class="player-name">${name}</div>
-                </div>
-            `;
-            
-            // Insert before no-results element
-            playersContainer.insertBefore(playerCard, noResults);
-            
-            // Reinitialize search if needed
-            // You might want to call new PlayerSearch() again or update the existing instance
-        }
     </script>
 </body>
 
