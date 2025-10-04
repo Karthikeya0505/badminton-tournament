@@ -6,449 +6,507 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registered Players - Badminton Tournament</title>
     <style>
-        /* CSS from your original file goes here. It is lengthy, so it's omitted for brevity in this response, but you should keep it exactly as you provided. */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        body {
-            font-family: "Segoe UI", Tahoma, sans-serif;
-            color: #fff;
-            background: linear-gradient(135deg, #24124e 0%, #3e1f7a 100%);
-            min-height: 100vh;
-            padding: 80px 20px 20px 20px;
-            position: relative;
-            overflow-x: hidden;
-        }
+body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    color: #fff;
+    background: linear-gradient(135deg, #24124e 0%, #3e1f7a 100%);
+    min-height: 100vh;
+    padding: 80px 20px 20px 20px;
+    position: relative;
+    overflow-x: hidden;
+}
 
-        /* Background effects */
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.08) 0, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.06) 0, transparent 50%);
-            pointer-events: none;
-        }
+/* Background effects */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.06) 0%, transparent 50%);
+    pointer-events: none;
+}
 
-        /* Header styling */
-        h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #fff;
-            font-size: clamp(2rem, 5vw, 2.5rem);
-            font-weight: 700;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-            letter-spacing: 1px;
-            position: relative;
-            z-index: 2;
-        }
+/* Header styling */
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #fff;
+    font-size: clamp(2rem, 5vw, 2.5rem);
+    font-weight: 700;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    letter-spacing: 1px;
+    position: relative;
+    z-index: 1;
+}
 
-        /* Back to home button */
-        .back-link {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            color: #ffde59;
-            text-decoration: none;
-            font-size: 1.1rem;
-            padding: 10px 20px;
-            border: 2px solid rgba(255, 222, 89, 0.5);
-            border-radius: 25px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
+/* Back link styling */
+.back-link {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    color: #fff;
+    text-decoration: none;
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    /* backdrop-filter: blur(10px); */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 1000;
+    font-size: 0.95rem;
+}
 
-        .back-link:hover {
-            background: rgba(255, 222, 89, 0.2);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 222, 89, 0.3);
-        }
+.back-link:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
 
-        /* Search bar styling */
-        .search-container {
-            max-width: 600px;
-            margin: 0 auto 30px auto;
-            position: relative;
-            z-index: 2;
-        }
+/* Search container */
+.search-container {
+    max-width: 600px;
+    margin: 0 auto 30px;
+    position: relative;
+    z-index: 1;
+}
 
-        .search-box {
-            width: 100%;
-            padding: 15px 20px 15px 50px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 30px;
-            font-size: 1.1rem;
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
+.search-box {
+    width: 100%;
+    padding: 15px 50px 15px 50px;
+    font-size: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    transition: all 0.3s ease;
+    /* backdrop-filter: blur(10px); */
+}
 
-        .search-box::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-        }
+.search-box::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
 
-        .search-box:focus {
-            outline: none;
-            border-color: #a3ff3c;
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 0 25px rgba(163, 255, 60, 0.3);
-            transform: translateY(-2px);
-        }
+.search-box:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
 
-        .search-icon {
-            position: absolute;
-            left: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.6);
-            pointer-events: none;
-        }
+/* Search icon */
+.search-icon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+}
 
-        .clear-search {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: #fff;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
+.search-icon::before {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    top: 0;
+    left: 0;
+}
 
-        .clear-search:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
+.search-icon::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.6);
+    transform: rotate(-45deg);
+    bottom: 0;
+    right: 0;
+}
 
-        /* Search stats */
-        .search-stats {
-            text-align: center;
-            margin-bottom: 20px;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1rem;
-        }
+/* Clear search button */
+.clear-search {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
 
-        .search-stats.hidden {
-            display: none;
-        }
+.clear-search:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
 
-        /* Players grid container */
-        .players-container {
-            max-width: 800px;
-            margin: 0 auto;
-            margin-top: 0;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 15px;
-            padding: 15px;
-            position: relative;
-            z-index: 2;
-        }
+.clear-search::before,
+.clear-search::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 2px;
+    background: #fff;
+}
 
-        /* Player card styling */
-        .player-card {
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            padding: 15px;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+.clear-search::before {
+    transform: rotate(45deg);
+}
 
-        .player-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-            background: rgba(255, 255, 255, 0.2);
-        }
+.clear-search::after {
+    transform: rotate(-45deg);
+}
 
-        /* Hidden class for search filtering */
-        .player-card.hidden {
-            display: none;
-        }
+/* Search stats */
+.search-stats {
+    text-align: center;
+    margin-bottom: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    transition: opacity 0.3s ease;
+}
 
-        /* Player photo styling */
-        .player-photo {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid rgba(255, 222, 89, 0.8);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            flex-shrink: 0;
-        }
+.search-stats.hidden {
+    display: none;
+}
 
-        .player-photo:hover {
-            transform: scale(1.05);
-            border-color: #a3ff3c;
-            box-shadow: 0 8px 20px rgba(163, 255, 60, 0.4);
-        }
+/* Players container */
+.players-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
 
-        /* Player info section */
-        .player-info {
-            flex: 1;
-            display: flex;
-            flex-direction: column; /* Changed to column to stack name and last name */
-            align-items: flex-start;
-            justify-content: center;
-        }
+/* Player card - REDUCED SIZE */
+.player-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: fadeIn 0.5s ease;
+}
 
-        .player-name {
-            font-size: clamp(1.1rem, 3.5vw, 1.4rem); /* Reduced size slightly for two lines */
-            font-weight: 700;
-            color: #ffde59;
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-            text-align: left;
-            line-height: 1.2;
-            letter-spacing: 0.3px;
-            word-break: break-word; /* Ensure long names wrap */
-        }
-        
-        .player-surname {
-            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-            color: rgba(255, 255, 255, 0.8);
-            margin-top: 2px;
-            font-weight: 400;
-        }
+.player-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.3);
+}
 
+.player-card.hidden {
+    display: none;
+}
 
-        /* Highlight search results */
-        .highlight {
-            background: linear-gradient(45deg, #ffde59, #a3ff3c);
-            color: #24124e;
-            padding: 2px 4px;
-            border-radius: 3px;
-            font-weight: 800;
-        }
+/* Player card main section - NEW LAYOUT */
+.player-card-main {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    min-height: 90px;
+}
 
-        /* Modal styling for zoomed images */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            backdrop-filter: blur(5px);
-        }
+/* Player photo - LEFT SIDE */
+.player-photo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
 
-        .modal.show {
-            display: flex;
-            opacity: 1;
-            justify-content: center;
-            align-items: center;
-        }
+.player-photo:hover {
+    transform: scale(1.05);
+    border-color: rgba(255, 255, 255, 0.5);
+}
 
-        .modal-content {
-            position: relative;
-            max-width: 90%;
-            max-height: 90%;
-            margin: auto;
-            animation: modalZoom 0.4s ease-out;
-        }
+/* Player info - CENTER (FIRST NAME AND SURNAME STACKED) */
+.player-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
 
-        @keyframes modalZoom {
-            from {
-                transform: scale(0.3);
-                opacity: 0;
-            }
+.player-name {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffd700;
+    word-wrap: break-word;
+    line-height: 1.2;
+}
 
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
+.player-surname {
+    font-size: 1.15rem;
+    color: rgba(255, 255, 255, 0.9);
+    word-wrap: break-word;
+    line-height: 1.2;
+}
 
-        .modal-image {
-            width: auto;
-            height: auto;
-            max-width: 80vw;
-            max-height: 80vh;
-            object-fit: contain;
-            border-radius: 15px;
-            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
-            border: 4px solid rgba(255, 222, 89, 0.6);
-        }
+/* Highlight text in search results */
+.highlight {
+    background-color: rgba(255, 215, 0, 0.3);
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-weight: 600;
+}
 
-        /* Close button styling */
-        .close-btn {
-            position: absolute;
-            top: -15px;
-            right: -15px;
-            background: #ff4757;
-            color: white;
-            border: none;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            font-size: 1.8rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 6px 20px rgba(255, 71, 87, 0.4);
-        }
+/* Player details toggle button - RIGHT SIDE AT END */
+.player-details-toggle {
+    width: 36px;
+    height: 36px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
 
-        .close-btn:hover {
-            background: #ff3742;
-            transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(255, 71, 87, 0.6);
-        }
+.player-details-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+}
 
-        /* Player name caption in modal */
-        .modal-caption {
-            position: absolute;
-            bottom: -60px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 30px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            white-space: nowrap;
-            border: 2px solid rgba(255, 222, 89, 0.5);
-        }
+.player-details-toggle::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(45deg);
+    transition: transform 0.3s ease;
+    margin-top: -3px;
+}
 
-        /* Empty state styling */
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: rgba(255, 255, 255, 0.8);
-            grid-column: 1 / -1;
-        }
+.player-details-toggle.expanded::before {
+    transform: rotate(-135deg);
+    margin-top: 3px;
+}
 
-        .empty-state h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #ffde59;
-        }
+/* Player details container - HIDDEN BY DEFAULT */
+.player-details-container {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding: 0 15px;
+    background: rgba(0, 0, 0, 0.2);
+}
 
-        .empty-state p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
+.player-details-container.show {
+    max-height: 500px;
+    padding: 15px;
+}
 
-        /* No results state */
-        .no-results {
-            text-align: center;
-            padding: 60px 20px;
-            color: rgba(255, 255, 255, 0.8);
-            grid-column: 1 / -1;
-            display: none;
-        }
+.player-details-container p {
+    margin: 8px 0;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
 
-        .no-results h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #ff6b6b;
-        }
+.player-details-container strong {
+    color: #ffd700;
+    font-weight: 600;
+}
 
-        .no-results p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
+/* No results message */
+.no-results {
+    text-align: center;
+    padding: 60px 20px;
+    color: rgba(255, 255, 255, 0.7);
+    display: none;
+}
 
-        /* Responsive design */
-        @media (max-width: 768px) {
-            body {
-                padding: 70px 15px 15px 15px;
-            }
+.no-results h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #ffd700;
+}
 
-            .search-container {
+.no-results p {
+    font-size: 1rem;
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+}
+
+.modal-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    animation: modalZoom 0.3s ease;
+}
+
+@keyframes modalZoom {
+    from {
+        transform: scale(0.7);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+.modal-image {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 80vh;
+    border-radius: 10px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+}
+
+.close-btn {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    color: #fff;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+    background: none;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+    color: #ffd700;
+    transform: rotate(90deg);
+}
+
+.modal-caption {
+    text-align: center;
+    color: #fff;
+    padding: 15px;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    body {
+        padding: 60px 15px 15px;
+    }
+      .search-container {
                 margin-bottom: 25px;
             }
+    .back-link {
+        top: 15px;
+        left: 15px;
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
 
-            .search-box {
-                padding: 12px 18px 12px 45px;
-                font-size: 1rem;
-            }
+    h2 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
 
-            .players-container {
-                grid-template-columns: 1fr;
-                gap: 12px;
-                padding: 12px;
-                max-width: 100%;
-                margin-top: 0;
-            }
+    .players-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
 
-            .player-card {
-                padding: 12px;
-                gap: 12px;
-            }
+    .player-card-main {
+        padding: 12px;
+    }
 
-            .player-photo {
-                width: 50px;
-                height: 50px;
-            }
+    .player-photo {
+        width: 55px;
+        height: 55px;
+    }
 
-            .player-name {
-                font-size: clamp(1.2rem, 4vw, 1.5rem);
-            }
-        }
+    .player-name {
+        font-size: 1.2rem;
+    }
 
-        @media (max-width: 480px) {
-            .search-box {
-                padding: 10px 15px 10px 40px;
-                font-size: 0.95rem;
-            }
+    .player-surname {
+        font-size: 1rem;
+    }
 
-            .search-icon {
-                left: 15px;
-                font-size: 1rem;
-            }
+    .search-box {
+        padding: 12px 45px 12px 45px;
+        font-size: 14px;
+    }
 
-            .players-container {
-                grid-template-columns: 1fr;
-                gap: 10px;
-                padding: 10px;
-            }
+    .player-details-toggle {
+        width: 32px;
+        height: 32px;
+    }
+}
 
-            .player-card {
-                padding: 10px;
-                gap: 10px;
-            }
+@media (max-width: 480px) {
+    .players-container {
+        grid-template-columns: 1fr;
+    }
 
-            .player-photo {
-                width: 45px;
-                height: 45px;
-            }
+    .player-card-main {
+        gap: 12px;
+    }
+}
 
-            .player-name {
-                font-size: clamp(1.1rem, 5vw, 1.3rem);
-            }
-        }
-    </style>
+</style>
 </head>
 
 <body>
@@ -458,7 +516,7 @@
 
     <div class="search-container">
         <div style="position: relative;">
-            <div class="search-icon">🔍</div>
+            <div class="search-icon"></div>
             <input type="text" id="searchBox" class="search-box" placeholder="Search players by name...">
             <button class="clear-search" id="clearSearch">×</button>
         </div>
@@ -487,324 +545,954 @@
     <script id="playerDataScript">
         // 1. ALL 96 PLAYER NAMES IN JSON FORMAT
         const playerData = [
-            {"firstName": "Naga anil kumar", "lastName": "Kakaria"},
-            {"firstName": "Akshay Boorla", "lastName": "Boorla"},
-            {"firstName": "Ravi Kumar", "lastName": "Tammana"},
-            {"firstName": "Chandra sekhar", "lastName": "Anumalasetti"},
-            {"firstName": "V K Chaitanya", "lastName": "Challa"},
-            {"firstName": "Sandeep", "lastName": "Kota"},
-            {"firstName": "SV MAHESH KUMAR", "lastName": "Sriram"},
-            {"firstName": "Venkata Guruwardhan kumar", "lastName": "Kotha"},
-            {"firstName": "JITHENDRA KUMAR", "lastName": "GOLLAPUDI"},
-            {"firstName": "DILEEP NAGA BHARGAV", "lastName": "NAMBURU"},
-            {"firstName": "SIVA KUMAR", "lastName": "Cheethirala"},
-            {"firstName": "PRANEETH KRISHNA", "lastName": "JILLA"},
-            {"firstName": "CHANDRASEKHAR", "lastName": "KOTA"},
-            {"firstName": "Chanakya", "lastName": "Bommisetti"},
-            {"firstName": "Manikanta", "lastName": "Mylavarapu"},
-            {"firstName": "Manohar", "lastName": "Tummalapenta"},
-            {"firstName": "Satish", "lastName": "Maturi"},
-            {"firstName": "KiranKumar", "lastName": "DOGIPARTHI"},
-            {"firstName": "Murali Vara Prasad", "lastName": "Gurram"},
-            {"firstName": "Bezawada siva gupta", "lastName": "Bezawada"},
-            {"firstName": "Gopi krishna", "lastName": "Manepalli"},
-            {"firstName": "Harish Kumar", "lastName": "Athukuri"},
-            {"firstName": "NITHIN", "lastName": "CHITTURI"},
-            {"firstName": "VENKATA RAMANA RAO", "lastName": "BATCHU"},
-
-            {"firstName": "Kiriti", "lastName": "Saranam"},
-            {"firstName": "Srikanth", "lastName": "Kandukuri"},
-            {"firstName": "Harshith Kumar", "lastName": "Nallamalli"},
-            {"firstName": "Anil Kumar", "lastName": "Pesala"},
-            {"firstName": "Tarun", "lastName": "Tata"},
-            {"firstName": "Kumarraja", "lastName": "Sugreevu"},
-            {"firstName": "Chakravarthi Pullarao Gupta", "lastName": "Pulikonda"},
-            {"firstName": "M vikram", "lastName": "Muvvala"},
-            {"firstName": "Peruri Satya", "lastName": "Peruri"},
-            {"firstName": "Dinesh Chakravarthy", "lastName": "Morisetty"},
-            {"firstName": "Venkatesh", "lastName": "Channa"},
-            {"firstName": "Sudhakar", "lastName": "Buragadda"},
-            {"firstName": "B.HARISH KUMAR", "lastName": "Bachu"},
-            {"firstName": "Raghavendra", "lastName": "KANDEPU"},
-            {"firstName": "KRISHNA CHAITANYA", "lastName": "DEVISETTY"},
-            {"firstName": "v d sampath kumar", "lastName": "vissamsetty"},
-            {"firstName": "rajasekhar", "lastName": "bandham"},
-            {"firstName": "V. Manoj Kumar", "lastName": "Vallam konda"},
-            {"firstName": "Prasad", "lastName": "Divvela"},
-            {"firstName": "Sainath", "lastName": "Talluri"},
-            {"firstName": "RK", "lastName": "Nalam"},
-            {"firstName": "S S CHAITANYA", "lastName": "SOMISETTY"},
-            {"firstName": "D RAGHAVENDRA RAO", "lastName": "Raghava"},
-            {"firstName": "Manikanta", "lastName": "K"},
-
-            {"firstName": "Dinesh", "lastName": "Perumalla"},
-            {"firstName": "D RAGHAVENDRA RAO", "lastName": "Raghava"},
-            {"firstName": "Chaitanya", "lastName": "Gollapudi"},
-            {"firstName": "Santosh pavan Kumar", "lastName": "Jakka"},
-            {"firstName": "Sundeep", "lastName": "Uppala"},
-            {"firstName": "Karthikeya", "lastName": "Atmakuri"},
-            {"firstName": "srikanth", "lastName": "ponnuru"},
-            {"firstName": "GNANA PRAKASH", "lastName": "TUNUGUNTLA"},
-            {"firstName": "Dvn ramarao", "lastName": "Desu"},
-            {"firstName": "Kasiviswanadh", "lastName": "Kommuri"},
-            {"firstName": "Saiteja", "lastName": "Meduri"},
-            {"firstName": "sasi kalyan chakravarthy", "lastName": "masetty"},
-            {"firstName": "Ramesh Babu", "lastName": "Immadisetti"},
-            {"firstName": "Raja", "lastName": "Patchipulusu"},
-            {"firstName": "Subbarao", "lastName": "Tummapudi"},
-            {"firstName": "Mahesh", "lastName": "Rachapudi"},
-            {"firstName": "Sreedhar", "lastName": "Neeli"},
-            {"firstName": "Murali Krishna", "lastName": "chitturi"},
-            {"firstName": "Karthik", "lastName": "Thammaana"},
-            {"firstName": "Suresh", "lastName": "Thammaana"},
-            {"firstName": "Sarankumar", "lastName": "Gubba"},
-            {"firstName": "Seetha ramaiah Ramu", "lastName": "Majeti"},
-            {"firstName": "Suresh", "lastName": "Mada"},
-
-            {"firstName": "S Naveen Kumar", "lastName": "Sriram"},
-            {"firstName": "Nikhil", "lastName": "Chitturi"},
-            {"firstName": "Dr GADHAMSETTY SRAVAN KUMAR", "lastName": "GADH AMSETTY"},
-            {"firstName": "Dinesh", "lastName": "Telanakula"},
-            {"firstName": "Muralikrishna", "lastName": "Sriram"},
-            {"firstName": "Subrahmanyam", "lastName": "Ravuri"},
-            {"firstName": "D Kiran Kishore", "lastName": "Duddu"},
-            {"firstName": "Tulluri Pandu Ranga Kishore Kumar", "lastName": "Tulluri"},
-            {"firstName": "NITHIN", "lastName": "CHITTURI"},
-            {"firstName": "Sai Krishna", "lastName": "Tulluri"},
-            {"firstName": "Nikhil", "lastName": "Chitturi"},
-            {"firstName": "Raj Prasad", "lastName": "Vema"},
-            {"firstName": "Harsha", "lastName": "Ranga"},
-            {"firstName": "MADHU", "lastName": "PENDELA"},
-            {"firstName": "MAHESH", "lastName": "RACHAPUDI"},
-            {"firstName": "Saran kumar", "lastName": "GUBBA"},
-            {"firstName": "Raja uday", "lastName": "Borra"},
-            {"firstName": "RAJA UDAY", "lastName": "BORRA"},
-            {"firstName": "Phaneendra", "lastName": "Sabbisetty"},
-            {"firstName": "Prasad", "lastName": "Batchu"},
-            {"firstName": "Avinash", "lastName": "Cheetirala"},
-            {"firstName": "Krishna chaitanya", "lastName": "Puvvada"},
-
-            {"firstName": "Raviteja", "lastName": "Penugonda"},
-            {"firstName": "Ramanjaneyulu", "lastName": "K V"},
-            {"firstName": "Bargav sai", "lastName": "Kolipakula"},
-            {"firstName": "HARIBABU", "lastName": "VOLETI"},
-            {"firstName": "Prabhu", "lastName": "Namburu"},
-            {"firstName": "Sudarsana prasad", "lastName": "Kothamasu"},
-            {"firstName": "Sai bhargav", "lastName": "Kolipakula Venkata naga"},
-            {"firstName": "Ch Gokul krishna", "lastName": "Chunduru"},
-            {"firstName": "Nikilesh", "lastName": "Kolipakula"},
-            {"firstName": "Krishna Vihar", "lastName": "CH"}
-        ];
+    {
+        "firstName": "Naga anil kumar",
+        "lastName": "Kakarla",
+        "playStyle": "RIGHT HAND",
+        "city": "Narasaraopet"
+    },
+    {
+        "firstName": "Anil Kumar",
+        "lastName": "Pesala",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Avinash",
+        "lastName": "Cheetirala",
+        "playStyle": "RIGHT HAND",
+        "city": "Vinukonda"
+    },
+    {
+        "firstName": "Lohith Kumar",
+        "lastName": "Bolisetty",
+        "playStyle": "RIGHT HAND",
+        "city": "Guntur"
+    },
+    {
+        "firstName": "Akshay Boorla",
+        "lastName": "Boorla",
+        "playStyle": "RIGHT HAND",
+        "city": "Hyderabad / Vijaywada"
+    },
+    {
+        "firstName": "Chaitanya",
+        "lastName": "Gollapudi",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "S S CHAITANYA",
+        "lastName": "SOMISETTY",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "KRISHNA CHAITANYA",
+        "lastName": "DEVISETTY",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Chanakya",
+        "lastName": "Bommisetti",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Chandra sekhar",
+        "lastName": "Anumalasetty",
+        "playStyle": "RIGHT HAND",
+        "city": "Tenali"
+    },
+    {
+        "firstName": "V K Chaitanya",
+        "lastName": "Challa",
+        "playStyle": "RIGHT HAND",
+        "city": "VIJAYAWADA"
+    },
+    {
+        "firstName": "Srinivasarao",
+        "lastName": "Cheviti",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada 520001"
+    },
+    {
+        "firstName": "D RAGHAVENDRA RAO",
+        "lastName": "Raghava",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "RK",
+        "lastName": "Nalam",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "DILEEP NAGA BHARGAV",
+        "lastName": "NAMBURU",
+        "playStyle": "RIGHT HAND",
+        "city": "VIJAYAWADA"
+    },
+    {
+        "firstName": "Dinesh Chakravarthy",
+        "lastName": "Morisetty",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Dinesh",
+        "lastName": "Telanakula",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "D Kiran Kumar",
+        "lastName": "Duddu",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Venkata Guruvardhan kumar",
+        "lastName": "Kotha",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "v d sampath kumar",
+        "lastName": "vissamsetty",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Tarun",
+        "lastName": "Dupaguntla",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Srinivasarao",
+        "lastName": "Dupaguntla",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Dvn ramarao",
+        "lastName": "Desu",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "NAGESWARA RAO",
+        "lastName": "Ghantasala",
+        "playStyle": "RIGHT HAND",
+        "city": "GUNTUR"
+    },
+    {
+        "firstName": "Ch Gokul krishna",
+        "lastName": "Chunduru",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Gopi krishna",
+        "lastName": "Manepalli",
+        "playStyle": "RIGHT HAND",
+        "city": "Machilipatnam"
+    },
+    {
+        "firstName": "Sarankumar",
+        "lastName": "Gubba",
+        "playStyle": "RIGHT HAND",
+        "city": "TENALI"
+    },
+    {
+        "firstName": "Bezawada siva gupta",
+        "lastName": "Bezawada",
+        "playStyle": "RIGHT HAND",
+        "city": "Gudiwada"
+    },
+    {
+        "firstName": "Chakravarthi Pullarao Gupta",
+        "lastName": "Pulikonda",
+        "playStyle": "RIGHT HAND",
+        "city": "Narasaraopet"
+    },
+    {
+        "firstName": "Harish Kumar",
+        "lastName": "Athukuri",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "HARISH KUMAR",
+        "lastName": "Bachu",
+        "playStyle": "RIGHT HAND",
+        "city": "Tenali"
+    },
+    {
+        "firstName": "Harshith Kumar",
+        "lastName": "Nallamalli",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Karthik Polepalli",
+        "lastName": "Karthik",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "JITHENDRA KUMAR",
+        "lastName": "GOLLAPUDI",
+        "playStyle": "RIGHT HAND",
+        "city": "VIJAYAWADA"
+    },
+    {
+        "firstName": "PRANEETH KRISHNA",
+        "lastName": "JILLA",
+        "playStyle": "RIGHT HAND",
+        "city": "VIJAYAWADA"
+    },
+    {
+        "firstName": "Ramanjaneyulu",
+        "lastName": "K V",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Bargav sai",
+        "lastName": "Kolipakula",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Krishna Vihar",
+        "lastName": "CH",
+        "playStyle": "RIGHT HAND",
+        "city": "Viayawada"
+    },
+    {
+        "firstName": "Harshal",
+        "lastName": "Tunuguntla",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Narayana",
+        "lastName": "Kondaveeti",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Srihari",
+        "lastName": "Khajjayam",
+        "playStyle": "RIGHT HAND",
+        "city": "Vinukonda"
+    },
+    {
+        "firstName": "Gangadhar",
+        "lastName": "Chimakurthi",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Nihar",
+        "lastName": "Kavita",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Sarath Chandu",
+        "lastName": "Vandanapu",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "prasanth",
+        "lastName": "Kakarla",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Midhilesh",
+        "lastName": "Pulipati",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Karthikeya",
+        "lastName": "Atmakuri",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawda"
+    },
+    {
+        "firstName": "Srikanth",
+        "lastName": "Kandukuri",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "KiranKumar",
+        "lastName": "DOGIPARTHI",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Kiriti",
+        "lastName": "Saranam",
+        "playStyle": "RIGHT HAND",
+        "city": "VIJAYAWADA"
+    },
+    {
+        "firstName": "Sandeep",
+        "lastName": "Kota",
+        "playStyle": "RIGHT HAND",
+        "city": "Inkollu"
+    },
+    {
+        "firstName": "Sudarsana prasad",
+        "lastName": "Kothamasu",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Krishna chaitanya",
+        "lastName": "Puvvada",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Dr GADHAMSETTY SRAVAN KUMAR",
+        "lastName": "GADHAMSETTY",
+        "playStyle": "RIGHT HAND",
+        "city": "VIJAYAWADA"
+    },
+    {
+        "firstName": "SV MAHESH KUMAR",
+        "lastName": "Sriram",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Mahesh",
+        "lastName": "Rachapudi",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Seetha ramaiah Ramu",
+        "lastName": "Majeti",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Manikanta",
+        "lastName": "Mylavarapu",
+        "playStyle": "RIGHT HAND",
+        "city": "Nandigama"
+    },
+    {
+        "firstName": "Manikanta",
+        "lastName": "K",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Sainath",
+        "lastName": "Talluri",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Manohar",
+        "lastName": "Tummalapenta",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "V. Manoj Kumar",
+        "lastName": "Vallam konda",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijaywada"
+    },
+    {
+        "firstName": "Raja",
+        "lastName": "Patchipulusu",
+        "playStyle": "RIGHT HAND",
+        "city": "Tenali"
+    },
+    {
+        "firstName": "Phaneendra",
+        "lastName": "Sabbisetty",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Satish",
+        "lastName": "Maturi",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Murali Krishna",
+        "lastName": "chitturi",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Muralikrishna",
+        "lastName": "Siram",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada520012"
+    },
+    {
+        "firstName": "Murali Vara Prasad",
+        "lastName": "Gurram",
+        "playStyle": "RIGHT HAND",
+        "city": "Guntur"
+    },
+    {
+        "firstName": "Subrahmanyam",
+        "lastName": "Ravuri",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada520001"
+    },
+    {
+        "firstName": "Naveen Kumar",
+        "lastName": "Sriram",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Nikhil",
+        "lastName": "Chitturi",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Nikilesh",
+        "lastName": "Kolipakula",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "NITHIN",
+        "lastName": "CHITTURI",
+        "playStyle": "RIGHT HAND",
+        "city": "VIJAYAWADA"
+    },
+    {
+        "firstName": "Santosh pavan Kumar",
+        "lastName": "Jakka",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Dinesh",
+        "lastName": "Perumalla",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "MADHU",
+        "lastName": "PENDELA",
+        "playStyle": "RIGHT HAND",
+        "city": "MACHILIPATNAM"
+    },
+    {
+        "firstName": "Prabhu",
+        "lastName": "Namburu",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "GNANA PRAKASH",
+        "lastName": "TUNUGUNTLA",
+        "playStyle": "RIGHT HAND",
+        "city": "TENALI"
+    },
+    {
+        "firstName": "Prasad",
+        "lastName": "Batchu",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Raghavendra",
+        "lastName": "KANDEPU",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Raj Prasad",
+        "lastName": "Vema",
+        "playStyle": "RIGHT HAND",
+        "city": "Inkollu"
+    },
+    {
+        "firstName": "Harsha",
+        "lastName": "Ranga",
+        "playStyle": "RIGHT HAND",
+        "city": "Inkollu"
+    },
+    {
+        "firstName": "Raja uday",
+        "lastName": "Borra",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "rajasekhar",
+        "lastName": "bandham",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "VENKATA RAMANA RAO",
+        "lastName": "BATCHU",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Ramesh Babu",
+        "lastName": "Immadisetti",
+        "playStyle": "RIGHT HAND",
+        "city": "Vinukonda"
+    },
+    {
+        "firstName": "Ramesh Kumar",
+        "lastName": "Batchu",
+        "playStyle": "RIGHT HAND",
+        "city": "Guntur"
+    },
+    {
+        "firstName": "Raviteja",
+        "lastName": "Penugonda",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Sai Krishna",
+        "lastName": "Tulluri",
+        "playStyle": "RIGHT HAND",
+        "city": "Machilipatnam"
+    },
+    {
+        "firstName": "sasi kalyan chakravarthy",
+        "lastName": "masetty",
+        "playStyle": "RIGHT HAND",
+        "city": "Visakhapatnam"
+    },
+    {
+        "firstName": "Peruri Satya",
+        "lastName": "Peruri",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "CHANDRASEKHAR",
+        "lastName": "KOTA",
+        "playStyle": "RIGHT HAND",
+        "city": "TENALI"
+    },
+    {
+        "firstName": "SIVA KUMAR",
+        "lastName": "Cheethirala",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Prasad",
+        "lastName": "Divvela",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Saiteja",
+        "lastName": "Meduri",
+        "playStyle": "RIGHT HAND",
+        "city": "Ongole"
+    },
+    {
+        "firstName": "Sreedhar",
+        "lastName": "Neeli",
+        "playStyle": "RIGHT HAND",
+        "city": "VIJAYAWADA"
+    },
+    {
+        "firstName": "srikanth",
+        "lastName": "ponnuru",
+        "playStyle": "RIGHT HAND",
+        "city": "vijayawada"
+    },
+    {
+        "firstName": "srinivas",
+        "lastName": "Perla",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Subbarao",
+        "lastName": "Tummapudi",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Sudhakar",
+        "lastName": "Buragadda",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Kumarraja",
+        "lastName": "Sugreevu",
+        "playStyle": "RIGHT HAND",
+        "city": "Vinukonda"
+    },
+    {
+        "firstName": "Suresh",
+        "lastName": "Mada",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Tarun",
+        "lastName": "Tata",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Karthik",
+        "lastName": "Thammana",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Suresh",
+        "lastName": "Thammana",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Ravi Kumar",
+        "lastName": "Tammana",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Tulluri Pandu Ranga Kishore Kumar",
+        "lastName": "Tulluri",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Sundeep",
+        "lastName": "Uppala",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Venkatesh",
+        "lastName": "Channa",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "M vikram",
+        "lastName": "Muvvala",
+        "playStyle": "RIGHT HAND",
+        "city": "Vij"
+    },
+    {
+        "firstName": "Kasiviswanadh",
+        "lastName": "Kommuri",
+        "playStyle": "RIGHT HAND",
+        "city": "TENALI"
+    },
+    {
+        "firstName": "HARIBABU",
+        "lastName": "VOLETI",
+        "playStyle": "RIGHT HAND",
+        "city": "VIJAYAWADA"
+    },
+    {
+        "firstName": "Keerthi Sahith",
+        "lastName": "CH",
+        "playStyle": "RIGHT HAND",
+        "city": "VIJAYAWADA"
+    },
+    {
+        "firstName": "Adi Shankar",
+        "lastName": "CH",
+        "playStyle": "RIGHT HAND",
+        "city": "VIJAYAWADA"
+    },
+    {
+        "firstName": "RAMA RAO",
+        "lastName": "Jakka",
+        "playStyle": "RIGHT HAND",
+        "city": "VIJAYAWADA"
+    },
+    {
+        "firstName": "VASANTHA KRISHNA",
+        "lastName": "nan",
+        "playStyle": "LEFT HAND",
+        "city": "CHODAVARAM"
+    },
+    {
+        "firstName": "Lingesh Rao",
+        "lastName": "nan",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    },
+    {
+        "firstName": "Jagadeesh",
+        "lastName": "Gaddam",
+        "playStyle": "RIGHT HAND",
+        "city": "Vijayawada"
+    }
+]
     </script>
 
-    <script>
-        // Default URL for generic player photos
-        const DEFAULT_PHOTO_URL = "https://static.vecteezy.com/system/resources/previews/045/892/686/non_2x/badminton-player-icon-image-symbol-illustration-vector.jpg"
-        // Function to render all players from the data array
-        function renderPlayers(data) {
-            const playersContainer = document.getElementById('playersContainer');
-            const noResults = document.getElementById('noResults');
-            
-            // Clear any existing cards (the samples)
-            const staticCards = Array.from(playersContainer.querySelectorAll('.player-card'));
-            staticCards.forEach(card => card.remove());
 
-            // Iterate over the data array and build the HTML
-            data.forEach(player => {
-                const fullName = `${player.firstName} ${player.lastName}`;
-                const dataName = fullName.toLowerCase().replace(/[^a-z0-9]/g, ''); // Simple normalization for data-name
-                
-                const playerCard = document.createElement('div');
-                playerCard.className = 'player-card';
-                playerCard.setAttribute('data-name', dataName);
-                
-                // Use innerHTML for easier structure creation
-                playerCard.innerHTML = `
-                    <img src="${DEFAULT_PHOTO_URL}" 
-                        alt="${fullName}" 
-                        class="player-photo" 
-                        onclick="openModal(this, '${fullName.replace(/'/g, "\\'")}')">
-                    <div class="player-info">
-                        <div class="player-name">${player.firstName}</div>
-                        <div class="player-surname">${player.lastName}</div>
-                    </div>
-                `;
-                
-                // Insert the new card just before the no-results message
-                playersContainer.insertBefore(playerCard, noResults);
+<script>
+    // Default URL for generic player photos (kept as is)
+    const DEFAULT_PHOTO_URL = "https://static.vecteezy.com/system/resources/previews/045/892/686/non_2x/badminton-player-icon-image-symbol-illustration-vector.jpg"
+
+    // NEW FUNCTION: Toggles the dropdown details
+    function toggleDetails(button) {
+        const targetId = button.getAttribute('data-target');
+        const targetElement = document.getElementById(targetId);
+        
+        // Find the closest player card (the parent container)
+        const playerCard = button.closest('.player-card');
+
+        // Close all other expanded cards in the container (for clean UX)
+        document.querySelectorAll('.player-details-container.show').forEach(container => {
+            if (container !== targetElement) {
+                container.classList.remove('show');
+                container.style.maxHeight = null;
+                // Safely find the toggle button within the parent card and remove 'expanded' class
+                const toggle = container.parentElement.querySelector('.player-details-toggle.expanded');
+                if (toggle) {
+                    toggle.classList.remove('expanded');
+                }
+            }
+        });
+
+        if (targetElement.classList.contains('show')) {
+            // Collapse
+            targetElement.classList.remove('show');
+            button.classList.remove('expanded');
+            targetElement.style.maxHeight = null;
+        } else {
+            // Expand
+            targetElement.classList.add('show');
+            button.classList.add('expanded');
+            // Set max-height to its scroll height to allow CSS transition
+            targetElement.style.maxHeight = targetElement.scrollHeight + "px";
+        }
+    }
+
+    // Function to render all players from the data array (MODIFIED)
+    // Function to render all players from the data array (CORRECTED)
+function renderPlayers(data) {
+    const playersContainer = document.getElementById('playersContainer');
+    const noResults = document.getElementById('noResults');
+    
+    // Clear any existing cards
+    const staticCards = Array.from(playersContainer.querySelectorAll('.player-card'));
+    staticCards.forEach(card => card.remove());
+
+    // Iterate over the data array and build the HTML
+    data.forEach((player, index) => {
+        const fullName = `${player.firstName} ${player.lastName}`;
+        const dataName = fullName.toLowerCase().replace(/[^a-z0-9]/g, ''); 
+        
+        const playerCard = document.createElement('div');
+        playerCard.className = 'player-card';
+        playerCard.setAttribute('data-name', dataName);
+        
+        // --- START CORRECTION HERE ---
+        // We use a single string template for clarity and place the details container at the end.
+        playerCard.innerHTML = `
+            <div class="player-card-main">
+                <img src="${DEFAULT_PHOTO_URL}" 
+                    alt="${fullName}" 
+                    class="player-photo" 
+                    onclick="openModal(this, '${fullName.replace(/'/g, "\\'")}')">
+                <div class="player-info">
+                    <div class="player-name">${player.firstName}</div>
+                    <div class="player-surname">${player.lastName}</div>
+                </div>
+                <button class="player-details-toggle" 
+                    data-target="details-${index}" 
+                    onclick="toggleDetails(this)">
+                    
+                </button>
+            </div>
+            
+            <div class="player-details-container" id="details-${index}">
+                <p><strong>City:</strong> ${player.city || 'N/A'}</p>
+                <p><strong>Play Style:</strong> ${player.playStyle || 'N/A'}</p>
+            </div>
+        `;
+        // --- END CORRECTION ---
+        
+        playersContainer.insertBefore(playerCard, noResults);
+    });
+}
+
+    // Search functionality (REMAINS THE SAME, but uses the new card structure)
+    class PlayerSearch {
+        constructor() {
+            this.searchBox = document.getElementById('searchBox');
+            this.clearButton = document.getElementById('clearSearch');
+            this.playersContainer = document.getElementById('playersContainer');
+            this.searchStats = document.getElementById('searchStats');
+            this.noResults = document.getElementById('noResults');
+            this.resultCount = document.getElementById('resultCount');
+            this.totalCount = document.getElementById('totalCount');
+            
+            this.playerCards = Array.from(document.querySelectorAll('.player-card'));
+            this.originalPlayerNames = new Map();
+            
+            this.init();
+        }
+        
+        init() {
+            this.playerCards.forEach(card => {
+                const firstName = card.querySelector('.player-name').textContent.trim();
+                const lastName = card.querySelector('.player-surname').textContent.trim();
+                const fullName = `${firstName} ${lastName}`;
+                this.originalPlayerNames.set(card, {firstName: firstName, lastName: lastName, fullName: fullName});
+            });
+            
+            this.totalCount.textContent = this.playerCards.length;
+            this.resultCount.textContent = this.playerCards.length; 
+            
+            this.searchBox.addEventListener('input', () => this.handleSearch());
+            this.searchBox.addEventListener('keyup', (e) => {
+                if (e.key === 'Escape') this.clearSearch();
+            });
+            
+            this.clearButton.addEventListener('click', () => this.clearSearch());
+            
+            this.searchBox.addEventListener('input', () => {
+                this.clearButton.style.display = this.searchBox.value ? 'flex' : 'none';
             });
         }
-
-
-        // Search functionality - MODIFIED TO PULL CARD DATA AFTER RENDERING
-        class PlayerSearch {
-            constructor() {
-                this.searchBox = document.getElementById('searchBox');
-                this.clearButton = document.getElementById('clearSearch');
-                this.playersContainer = document.getElementById('playersContainer');
-                this.searchStats = document.getElementById('searchStats');
-                this.noResults = document.getElementById('noResults');
-                this.resultCount = document.getElementById('resultCount');
-                this.totalCount = document.getElementById('totalCount');
-                
-                // Collect player cards after they have been dynamically rendered
-                this.playerCards = Array.from(document.querySelectorAll('.player-card'));
-                this.originalPlayerNames = new Map();
-                
-                this.init();
-            }
+        
+        handleSearch() {
+            const searchTerm = this.searchBox.value.toLowerCase().trim();
             
-            init() {
-                // Store original player names (First Name + Last Name) for search and highlighting
-                this.playerCards.forEach(card => {
-                    const firstName = card.querySelector('.player-name').textContent.trim();
-                    const lastName = card.querySelector('.player-surname').textContent.trim();
-                    const fullName = `${firstName} ${lastName}`;
-                    this.originalPlayerNames.set(card, {firstName: firstName, lastName: lastName, fullName: fullName});
-                });
-                
-                // Set initial total count
-                this.totalCount.textContent = this.playerCards.length;
-                this.resultCount.textContent = this.playerCards.length; // All visible initially
-                
-                // Event listeners
-                this.searchBox.addEventListener('input', () => this.handleSearch());
-                this.searchBox.addEventListener('keyup', (e) => {
-                    if (e.key === 'Escape') this.clearSearch();
-                });
-                
-                this.clearButton.addEventListener('click', () => this.clearSearch());
-                
-                // Show/hide clear button
-                this.searchBox.addEventListener('input', () => {
-                    this.clearButton.style.display = this.searchBox.value ? 'flex' : 'none';
-                });
-            }
-            
-            handleSearch() {
-                const searchTerm = this.searchBox.value.toLowerCase().trim();
-                
-                if (searchTerm === '') {
-                    this.showAllPlayers();
-                    return;
-                }
-                
-                let visibleCount = 0;
-                
-                this.playerCards.forEach(card => {
-                    const originalData = this.originalPlayerNames.get(card);
-                    const playerName = originalData.fullName.toLowerCase();
-                    const firstNameElement = card.querySelector('.player-name');
-                    const lastNameElement = card.querySelector('.player-surname');
-                    
-                    if (playerName.includes(searchTerm)) {
-                        card.classList.remove('hidden');
-                        visibleCount++;
-                        
-                        // Highlight matching text on both name fields
-                        firstNameElement.innerHTML = this.highlightText(originalData.firstName, searchTerm);
-                        lastNameElement.innerHTML = this.highlightText(originalData.lastName, searchTerm);
-                    } else {
-                        card.classList.add('hidden');
-                        // Restore original text
-                        firstNameElement.textContent = originalData.firstName;
-                        lastNameElement.textContent = originalData.lastName;
-                    }
-                });
-                
-                // Update search stats
-                this.updateSearchStats(visibleCount, searchTerm);
-                
-                // Show/hide no results message
-                this.toggleNoResults(visibleCount === 0);
-            }
-            
-            highlightText(text, searchTerm) {
-                if (!searchTerm) return text;
-                // 'gi' for global (all occurrences) and case-insensitive
-                const regex = new RegExp(`(${searchTerm})`, 'gi'); 
-                return text.replace(regex, '<span class="highlight">$1</span>');
-            }
-            
-            updateSearchStats(visibleCount, searchTerm) {
-                this.resultCount.textContent = visibleCount;
-                
-                if (searchTerm) {
-                    this.searchStats.classList.remove('hidden');
-                } else {
-                    this.searchStats.classList.add('hidden');
-                }
-            }
-            
-            toggleNoResults(show) {
-                if (show) {
-                    this.noResults.style.display = 'block';
-                } else {
-                    this.noResults.style.display = 'none';
-                }
-            }
-            
-            showAllPlayers() {
-                this.playerCards.forEach(card => {
-                    card.classList.remove('hidden');
-                    const originalData = this.originalPlayerNames.get(card);
-                    card.querySelector('.player-name').textContent = originalData.firstName;
-                    card.querySelector('.player-surname').textContent = originalData.lastName;
-                });
-                
-                this.searchStats.classList.add('hidden');
-                this.toggleNoResults(false);
-            }
-            
-            clearSearch() {
-                this.searchBox.value = '';
-                this.clearButton.style.display = 'none';
+            if (searchTerm === '') {
                 this.showAllPlayers();
-                this.searchBox.focus();
+                return;
             }
+            
+            let visibleCount = 0;
+            
+            this.playerCards.forEach(card => {
+                const originalData = this.originalPlayerNames.get(card);
+                const playerName = originalData.fullName.toLowerCase();
+                const firstNameElement = card.querySelector('.player-name');
+                const lastNameElement = card.querySelector('.player-surname');
+                
+                if (playerName.includes(searchTerm)) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                    
+                    firstNameElement.innerHTML = this.highlightText(originalData.firstName, searchTerm);
+                    lastNameElement.innerHTML = this.highlightText(originalData.lastName, searchTerm);
+                } else {
+                    card.classList.add('hidden');
+                    firstNameElement.textContent = originalData.firstName;
+                    lastNameElement.textContent = originalData.lastName;
+                }
+            });
+            
+            this.updateSearchStats(visibleCount, searchTerm);
+            this.toggleNoResults(visibleCount === 0);
         }
-
-        // Modal functionality - KEPT AS IS
-        function openModal(imgElement, playerName) {
-            const modal = document.getElementById('photoModal');
-            const modalImage = document.getElementById('modalImage');
-            const modalCaption = document.getElementById('modalCaption');
-
-            modalImage.src = imgElement.src.replace('w=150&h=150', 'w=800&h=800');
-            modalImage.alt = imgElement.alt;
-            modalCaption.textContent = playerName;
-
-            modal.classList.add('show');
-            document.body.style.overflow = 'hidden';
+        
+        highlightText(text, searchTerm) {
+            if (!searchTerm) return text;
+            const regex = new RegExp(`(${searchTerm})`, 'gi'); 
+            return text.replace(regex, '<span class="highlight">$1</span>');
         }
-
-        function closeModal() {
-            const modal = document.getElementById('photoModal');
-            modal.classList.remove('show');
-            document.body.style.overflow = 'auto';
+        
+        updateSearchStats(visibleCount, searchTerm) {
+            this.resultCount.textContent = visibleCount;
+            this.searchStats.classList.toggle('hidden', !searchTerm);
         }
+        
+        toggleNoResults(show) {
+            this.noResults.style.display = show ? 'block' : 'none';
+        }
+        
+        showAllPlayers() {
+            this.playerCards.forEach(card => {
+                card.classList.remove('hidden');
+                const originalData = this.originalPlayerNames.get(card);
+                card.querySelector('.player-name').textContent = originalData.firstName;
+                card.querySelector('.player-surname').textContent = originalData.lastName;
+            });
+            
+            this.searchStats.classList.add('hidden');
+            this.toggleNoResults(false);
+        }
+        
+        clearSearch() {
+            this.searchBox.value = '';
+            this.clearButton.style.display = 'none';
+            this.showAllPlayers();
+            this.searchBox.focus();
+        }
+    }
 
-        // Event listeners for modal - KEPT AS IS
-        document.getElementById('photoModal').addEventListener('click', function (e) {
-            if (e.target === this) {
-                closeModal();
-            }
-        });
+    // Modal functionality (remains the same)
+    function openModal(imgElement, playerName) {
+        const modal = document.getElementById('photoModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalCaption = document.getElementById('modalCaption');
 
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') {
-                closeModal();
-            }
-        });
+        modalImage.src = imgElement.src.replace('w=150&h=150', 'w=800&h=800');
+        modalImage.alt = imgElement.alt;
+        modalCaption.textContent = playerName;
 
-        // Initialize everything: 
-        // 1. Render players first.
-        // 2. Initialize the search functionality on the newly created cards.
-        document.addEventListener('DOMContentLoaded', function() {
-            renderPlayers(playerData);
-            new PlayerSearch();
-        });
-    </script>
-</body>
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
 
-</html>
+    function closeModal() {
+        const modal = document.getElementById('photoModal');
+        modal.classList.remove('show');
+        document.body.style.overflow = 'auto';
+    }
+
+    // Event listeners for modal (remains the same)
+    document.getElementById('photoModal').addEventListener('click', function (e) {
+        if (e.target === this) {
+            closeModal();
+        }
+    });
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            closeModal();
+        }
+    });
+
+    // Initialize everything: 
+    document.addEventListener('DOMContentLoaded', function() {
+        renderPlayers(playerData);
+        // Re-initialize PlayerSearch after rendering to pick up new cards
+        new PlayerSearch(); 
+    });
+</script>
+    
+
+
